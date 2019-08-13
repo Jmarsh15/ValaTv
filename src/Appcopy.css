@@ -47,52 +47,8 @@ hr {
 
 .img-but {
     margin-bottom: 20px;
-    vertical-align: middle;
-    width: 206px; /*any size*/
-    height: 206px; /*any size*/
 }
-.img-thumbnail-live{
-  margin-bottom: 0px;
-  vertical-align: middle;
-  width: 309.6px; /*any size*/
-  height: 176.0px; /*any size*/
-}
-.img-gamethumbnail-live{
-  margin-bottom: 20px;
-  margin-top: 10px;
-  margin-right: 00px;
-  vertical-align: middle;
-  width: 64px; /*any size*/
-  height: 64px; /*any size*/
-}
-.live-title{
-  padding-left: 55px;
-  max-width: 250px;
-  position: absolute;
-  font-size: 13px;
-  color: #fff;
-  margin: 0;
-  padding-top: 10px;
-  padding-left:72px;
-  text-transform: uppercase;
-}
-.tw-ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.gg{
-	width: 200px;
-}
-.live-username{
-  margin-top: 35px;
-  padding-left: 55px;
-  max-width: 250px;
-  position: absolute;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+
 .img-top {
     margin-top: 20px;
 }
@@ -248,11 +204,8 @@ footer {
 .live-stream {
     background-color: #3676be;
     width: auto;
-    height: 776px;
+    height: 100vh;
     display: inline;
-    position: fixed;
-top: 50;
-left: 0;
 }
 
 .gutter {
@@ -283,12 +236,7 @@ h4 {
 h5 {
     font-size: 12px;
 }
-h6 {
-    font-size: 16px;
-    padding-left: 18px;
-    padding-top: 12px;
-    text-transform: uppercase;
-}
+
 .avter-but {
     font-size: 14px;
     width: 100%;
@@ -410,8 +358,6 @@ h6 {
 
 .flout-left {
     float: left;
-    border : none;
-    text-transform: uppercase;
 }
 
 .flout-right {
@@ -1332,7 +1278,7 @@ input:checked + .slider:before {
     }
 
     .date-input {
-        width: 26%;
+        width: 17%;
     }
 }
 
@@ -1406,7 +1352,6 @@ input:checked + .slider:before {
 
 .img-button .img-but {
     margin-bottom: 0;
-
 }
 
 .featured-giveway-imgBtn {
@@ -1462,16 +1407,7 @@ input:checked + .slider:before {
 .user-but-list ul li {
     text-align: left;
 }
-.btn-bg-trans {
-    background-color: transparent;
-    border: none;
-    outline: none !important;
-}
-.btn_join_entry {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
+
 .front {
   position:absolute;
   top:0;
@@ -1480,259 +1416,4 @@ input:checked + .slider:before {
   height:100%;
   border: none;
   background-color:transparent;
-}
-.text-coins{
-  border:none;
-}
-.container {
-  width: 206px; /*any size*/
-  height: 206px; /*any size*/
-}
-.object-fit-cover{
-  border: none;
-  vertical-align: middle;
-  width: 206px;
-  height: 206px;
-}
-.avatar {
-  vertical-align: middle;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
-.current-giveaway{
-  vertical-align: middle;
-  width: 150px;
-  height: 100px;
-}
-.past-winner{
-  vertical-align: middle;
-  width: 150px;
-  height: 100px;
-}
-.App {
-	background-image: url(/assets/images/background.png);
-	background-repeat: no-repeat;
-	-webkit-background-size: cover;
-	background-size: cover;
-	padding-bottom: 100px;
-  text-align: left;
-}
-.logo {
-	padding: 170px 0 0 80px;
-  text-align: left;
-}
-.logo img {
-	width: 600px;
-}
-.font-30 {
-	font-size: 30px;
-}
-.header-sign-up {
-	padding: 0 0 0 80px;
-	display: flex;
-	justify-content: space-between;
-  text-align: left;
-}
-.header-welcome {
-	color: white;
-	text-transform: uppercase;
-	margin-top: 40px;
-	font-size: 30px;
-	line-height: 2;
-	width: 50%;
-}
-.text-left{
-  text-align: left;
-}
-.header-welcome span{
-	color: #3676be;
-}
-.sign-up-button-header {
-	padding-right: 0;
-	width: 45%;
-}
-.sign-up-line {
-	border: 2px solid #3676be;
-	margin-top: 0;
-	margin-bottom: 0;
-}
-.btn-bg {
-	border-top: 300px solid rgba(33, 62, 96, 0.6);
-	border-left: 150px solid transparent;
-}
-.description {
-	padding: 100px 80px 50px;
-	color: white;
-	font-size: 30px;
-  line-height: 2;
-}
-.btn-container {
-	display: flex;
-	justify-content: center;
-	margin-top: -300px;
-	margin-left: 110px;
-  line-height: 1.5;
-}
-.description img {
-	width: 180px;
-	height: 50px;
-	margin-top: -30px;
-	margin-right: 20px;
-}
-.capital-text {
-	text-transform: uppercase;
-}
-.launches-in {
-	background-color: #213f60;
-	padding: 50px 0;
-	text-align: center;
-	color: white;
-	font-size: 50px;
-	display: flex;
-}
-.how-it-work {
-	padding: 20px 50px 0;
-	display: flex;
-}
-.works-container {
-	padding-right: 80px;
-	border-right: 1px solid;
-	width: 50%;
-	border-image: linear-gradient(to bottom,#3676bd,rgba(0, 0, 0, 0)) 1 100%;
-
-}
-.launch-title {
-	width: 50%;
-	text-align: right;
-}
-.launch-time {
-	margin-left: 30px;
-}
-.founders-container {
-	padding-left: 80px;
-}
-.info-title {
-	text-align: center;
-	color: #3676be;
-}
-.information {
-	display: flex;
-	color: white;
-	text-transform: uppercase;
-	line-height: 2;
-	padding: 50px 80px 0;
-}
-
-.founders-container {
-	width: 50%;
-}
-.social-menu {
-	text-align: center;
-}
-
-.social-menu ul li {
-	display: inline-block;
-	padding: 10px;
-}
-
-.social-menu ul li a {
-	color: #fff;
-	font-size: 18px;
-}
-
-.social-footer {
-	text-align: center;
-	position: relative;
-	top: 0px;
-}
-
-.social-footer ul li {
-	display: inline-block;
-	padding: 10px;
-}
-
-.social-footer ul li a {
-	color: #fff;
-	font-size: 25px;
-}
-.social-footer ul li a:hover {
-	color: #222;
-}
-.social-menu p {
-	color: white;
-}
-.founder-lists {
-	list-style: none;
-	font-size: 30px;
-  padding-left: 40px;
-}
-.founder-lists span {
-	color: #3676be;
-}
-.signup-btn span{
-	font-size: 120px;
-}
-.signup-btn  {
-	font-size: 50px;
-	outline: none !important;
-	background: transparent;
-	border: none;
-	color: white;
-	text-transform: uppercase;
-}
-.bottom-signup {
-	width: 45%;
-	margin-top: -100px;
-}
-.bottom-signup .signup-btn {
-	margin-bottom: 250px;
-	margin-left: -200px;
-}
-.bottom-signup .btn-bg {
-	border-right: 150px solid transparent;
-	border-left: unset;
-}
-.headerlogo {
-  vertical-align: middle;
-  width: 80px;
-  height: 25px;
-}
-.chat-bg{
-  position: fixed;
-
-}
-/* .chat-bg{
-  position: relative;
-  overflow: hidden;
-  padding-top: 56.25%;
-
-} */
-
-.chat-iframe{
-  top: 0;
-  left: 0;
-  width: 100%;
-  border: 0;
-
-}
-.othergiveaway{
-  width: 145px;
-  height: 97px;
-}
-.giveawayimage{
-  width: 150px;
-  height: 100px;
-}
-
-.pastgiveawayimage{
-  width: 75px;
-  height: 50px;
-}
-
-.giveawayimagefile{
-  border: none;
-  vertical-align: middle;
-  width: 206px;
-  height: 206px;
 }
