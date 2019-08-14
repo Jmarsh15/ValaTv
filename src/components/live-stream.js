@@ -962,7 +962,7 @@ class LiveStream extends React.Component {
 		let found = false
 		let url = ''
 		if (type != 'bonus') {
-			entered = entered.split(',')
+				entered = entered.split(',')
 			if (!entered.includes(index.toString())) {
 				switch (entries[index].label.toLowerCase()) {
 					case 'follow on twitch':
@@ -1035,10 +1035,10 @@ class LiveStream extends React.Component {
 									break;
 						case 'visit website':
 
-							url = 'https://google.com'
+							url = 'http://'+entries[index].username
 							window.open(url, '_blank');
+							setTimeout(function() { this.markGiveawayEntries(index,entries[index].coin_amount); }, 5000);
 
-							this.markGiveawayEntries(index,0)
 							break;
 					default:
 
