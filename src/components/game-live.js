@@ -32,7 +32,6 @@ class GameLive extends React.Component {
       var url = BACKEND_API + "getcurrentviewers/?page=" + games;
       xhr.open("GET", url, true);
       xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.setRequestHeader('Authorization', 'Token ' + localStorage.getItem('token'))
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200 || xhr.status === 400) {
           var json = JSON.parse(xhr.responseText);
@@ -88,7 +87,6 @@ class GameLive extends React.Component {
       var url = BACKEND_API +  "livechannels/";
       xhr.open("GET", url, true);
       xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.setRequestHeader('Authorization', 'Token ' + localStorage.getItem('token'))
       xhr.onreadystatechange = () => {
            if (xhr.readyState === 4 && xhr.status === 200 || xhr.status === 400) {
              var json = JSON.parse(xhr.responseText);

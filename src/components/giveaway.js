@@ -102,13 +102,13 @@ componentDidMount(){
                                     return (
                                         <div key={index} className="col-lg-4 col-md-4 col-md-12">
                                           <Link to={giveaway.url}>
-                                            <h1 className="center uppercase">{giveaway.title}</h1>
+                                            <h1 className="center uppercase margin-top20">{giveaway.title}</h1>
                                             <button className={"img-button"}>
                                                 <img alt={"giveway thumb"}
                                                     src={giveaway.img} className="img-responsive"/>
                                             </button>
-                                            <div className="center margin-top20">
-                                                <button className="own-btn btn btn-blue btn-primary uppercase">Enter
+                                            <div className="center margin-top20 ">
+                                                <button className="own-btn btn btn-blue btn-primary uppercase margin-bottom20">Enter
                                                 </button>
                                             </div>
                                           </Link>
@@ -133,7 +133,7 @@ componentDidMount(){
                                                                         <button className={"img-button"}>
                                                                             <img alt={"othergiveaway"}
                                                                                 src={other_giveaway.game_img}
-                                                                                 className="img-responsive othergiveaway"/>
+                                                                                 className="img-responsive profile-othergiveaway"/>
                                                                         </button>
                                                                     </div>
                                                                     <div className="flout-right side-past-date">
@@ -141,7 +141,7 @@ componentDidMount(){
                                                                         <h1 className="uppercase p-t10 mergin0">{other_giveaway.title}</h1>
                                                                         <br/>
                                                                         <button
-                                                                            className="own-btn btn btn-blue btn-primary uppercase">Enter
+                                                                            className="own-btn btn btn-blue uppercase">Enter
                                                                         </button>
                                                                     </div>
                                                                 </div>
