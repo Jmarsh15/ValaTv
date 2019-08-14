@@ -1037,7 +1037,7 @@ class LiveStream extends React.Component {
 
 							url = 'http://'+entries[index].username
 							window.open(url, '_blank');
-							setTimeout(function() { this.markGiveawayEntries(index,entries[index].coin_amount); }, 5000);
+							this.markGiveawayEntries(index,entries[index].coin_amount)
 
 							break;
 					default:
