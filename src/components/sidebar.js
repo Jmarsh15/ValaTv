@@ -78,7 +78,7 @@ class SideBar extends React.Component {
                   const data = {
                       img : thumbnail,
                       gameid : json[0].game_id,
-                      url : list[i].User
+                      url : '/'+list[i].User+'/'
                       }
                   live.push(data)
 

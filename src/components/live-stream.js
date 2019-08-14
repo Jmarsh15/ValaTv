@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link,Redirect} from 'react-router-dom'
 import SideBar from "./sidebar";
 // import * as qs from 'query-string';
 import {BACKEND_API, server_url,GOOGLEANALYICS} from "../utility";
@@ -553,7 +553,6 @@ class LiveStream extends React.Component {
 
 	chackGameChannel = () => {
 		//TODO Load Image from AWS
-
 		var pageurl = window.location.href.split('/')
 		var xhr = new XMLHttpRequest();
 		var url = BACKEND_API + "profile/?username=" + pageurl[3];
@@ -564,8 +563,9 @@ class LiveStream extends React.Component {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				this.setState({host: pageurl[3]})
 				var json = JSON.parse(xhr.responseText);
-				if (json.length != 0) {
-					console.log(json[0].profileType)
+				console.log(json)
+				if (json.length === 1) {
+
 
 					if (json[0].profileType != 'game') {
 						this.LoadProfile()
@@ -580,6 +580,10 @@ class LiveStream extends React.Component {
 						this.setState({game_entry: data})
 					}
 
+				}
+				else {
+					console.log('noo')
+					window.location.href = '/';
 				}
 
 			}
@@ -1255,7 +1259,8 @@ TwitterLogin= () => {
 						<SideBar/>
 						<div className="col-md-9">
 							{
-								this.state.online_status ? <div className={"live-stream-featured-links row"}>
+								this.state.online_status ?
+								<div className={"live-stream-featured-links row"}>
 									<div className="col-md-8 bg-gray mar-bot30 gutter">
 										<div className="embed-responsive embed-responsive-16by9">
 											<iframe id="video" className="embed-responsive-item"
@@ -1314,7 +1319,7 @@ TwitterLogin= () => {
 												<Link key={index} to={ads_channel.url}>
 													<img alt={"ads channel"}
 													     src={ads_channel.img}
-													     className="img-responsive img-but"/>
+													     className="img-responsive img-livestream-ads"/>
 												</Link>
 											)
 										})}

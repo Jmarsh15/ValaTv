@@ -38,8 +38,15 @@ class Home extends React.Component {
               if (json[i].featureType == 0) {
                 home = json[i].twitchName
                 var iframe = document.getElementById('video');
-                iframe.src = iframe.src + json[i].twitchName;
-                this.setState({stream_url:json[i].User})
+                if (json[i].twitchName === undefined) {
+                  this.LoadWebhooks(type1)
+                }
+                else {
+                  iframe.src = iframe.src + json[i].twitchName;
+                  this.setState({stream_url:json[i].User})
+                }
+
+
               }
               else if (json[i].featureType == 1) {
                 type1.push(json[i])
@@ -48,13 +55,17 @@ class Home extends React.Component {
                 type2.push(json[i])
               }
             }
-            if (home == '') {
+            if (home === '') {
               var max = type1.length
-              max = Math.floor(Math.random() * Math.floor(max))
-              var iframe = document.getElementById('video');
-              iframe.src = iframe.src + json[max].twitchName;
-              this.setState({stream_url:json[max].User})
-              type1.splice(max, 1);
+              if (max != 0) {
+                max = Math.floor(Math.random() * Math.floor(max))
+                var iframe = document.getElementById('video');
+                iframe.src = iframe.src + json[max].twitchName;
+                this.setState({stream_url:json[max].User})
+                type1.splice(max, 1);
+              }
+
+
             }
 
             if (type1.length < 6) {
@@ -71,6 +82,8 @@ class Home extends React.Component {
       var live = []
       var xhr = new XMLHttpRequest();
       var thumbnail = ''
+      if (list.length != 0) {
+
       for (var i = 0; i < list.length; i++) {
         var url = BACKEND_API +  "livechannels/?username=" +list[i].twitchName;
         xhr.open("GET", url, false);
@@ -88,13 +101,57 @@ class Home extends React.Component {
 
             }
                   thumbnail = thumbnail.slice(0,-20)
-                  thumbnail = thumbnail + '770x435.jpg'
+                  thumbnail = thumbnail + '768x432.jpg'
+
                   const data = {
                       img : thumbnail,
                       gameid : json[0].game_id,
                       url : list[i].User
                       }
                   live.push(data)
+
+            }
+          }.bind(this)
+        xhr.send();
+      }
+    }
+      else {
+        var url = BACKEND_API +  "livechannels/";
+        xhr.open("GET", url, false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        //xhr.setRequestHeader('Authorization', 'Token ' + localStorage.getItem('token'))
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            var max = Math.floor(Math.random() * Math.floor(json.length))
+            var iframe = document.getElementById('video');
+            var temp = iframe.src.split('=')
+            for (var i = 0; i < json.length; i++) {
+              if (max === i && temp[1] === '') {
+                  iframe.src = iframe.src + json[i].user_name;
+                }
+              else {
+                if((json[i].thumbnail_url.indexOf('(\'') > -1) || (json[i].thumbnail_url.indexOf('("') > -1))
+                {
+                  thumbnail = json[i].thumbnail_url.slice(2,-3)
+                }
+                else {
+                  thumbnail =json[i].thumbnail_url
+
+                }
+
+                  thumbnail = thumbnail.slice(0,-20)
+                  thumbnail = thumbnail + '768x432.jpg'
+                  const data = {
+                      img : thumbnail,
+                      gameid : json[i].game_id,
+                      url : json[i].user_name
+                      }
+                  live.push(data)
+              }
+
+
+          }
 
             }
           }.bind(this)
@@ -143,6 +200,7 @@ class Home extends React.Component {
 
             this.setState({browse_giveaways:featured})
             this.setState({ads_channels:ad})
+
           }
         }.bind(this)
       xhr.send();
@@ -162,7 +220,6 @@ class Home extends React.Component {
       ReactGA.initialize(GOOGLEANALYICS);
       ReactGA.pageview('homepage');
       (window.adsbygoogle = window.adsbygoogle || []).push({});
-
     }
     render() {
       const style = {
@@ -191,7 +248,7 @@ class Home extends React.Component {
                                         <div key={index} className="col-lg-6 col-md-6 col-sm-12">
                                             <Link to={ads_channel.url}>
                                                 <img alt={"ads channel"} src={ads_channel.img}
-                                                     className="home-first-row img-responsive img-but "/>
+                                                     className="home-first-row img-responsive img-featured-ads "/>
                                             </Link>
                                         </div>
                                     )
@@ -210,7 +267,7 @@ class Home extends React.Component {
                                         <li key={key}>
                                             <Link to={featured_channel.url}>
                                                 <img alt={"featured channel"}
-                                                    src={featured_channel.img} className="img-responsive img-but"/>
+                                                    src={featured_channel.img} className="img-responsive img-featured-streams"/>
                                             </Link>
                                         </li>
                                     )
@@ -239,26 +296,28 @@ class Home extends React.Component {
                     </div>
                 </div>
                 <div className="container-fluid">
-                    <div className="row" id="gap">
-                        <div className="featured-giveaways col-md-12">
-                            <h1 className="center">Featured Giveaways</h1>
+                    <div className="row">
+                      <h1 className="center">Featured Giveaways</h1>
+                        <div className="featured-channels">
+                          <ul className={"featured-channels-image"}>
                             {this.state.browse_giveaways.map((browse_giveaway, index) => {
                                 return (
-                                    <div key={index} className="col-lg-3 col-md-3 col-sm-12">
-                                        <Link to={browse_giveaway.url}>
-                                        <img alt={"browse giveaway"}
-                                            src={browse_giveaway.img}
-                                        className="img-responsive img-but"/>
-                                        </Link>
-                                    </div>
+                                  <li key={index}>
+                                      <Link to={browse_giveaway.url}>
+                                          <img alt={"featured giveaways"}
+                                              src={browse_giveaway.img} className="img-responsive img-featured-streams"/>
+                                      </Link>
+                                  </li>
+
                                 )
                             })}
-
+                          </ul>
                         </div>
-                        <Link to={"/giveaway"}>
-                        <h1 className="browse-giveaway-letter">Browse Giveaways</h1>
-                        </Link>
+
                     </div>
+                    <Link to={"/giveaway"}>
+                    <h1 className="browse-giveaway-letter">Browse Giveaways</h1>
+                    </Link>
                 </div>
             </div>
         )

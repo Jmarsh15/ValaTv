@@ -11,12 +11,12 @@
 */
 
 * { margin: 0; padding: 0; }
-body { font: 14px Georgia, serif; }
+body { font: 14px Georgia, serif;position: relative; min-height: 100vh; padding-bottom: 10rem;}
 
 article, aside, figure, footer, header, hgroup,
 menu, nav, section { display: block; }
 
-#page-wrap { width: 490px; margin: 80px auto; }
+#page-wrap { width: 490px; margin: 80px auto;  }
 
 body { background: #333; text-align: center; color: #eee; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
 h1 { font-size: 42px; font-weight: 600; margin: 0 0 30px 0; }
@@ -44,12 +44,41 @@ img {
 hr {
     border-color: #1e1e21;
 }
-
+.img-featured-streams
+{
+  margin-bottom: 20px;
+  vertical-align: middle;
+  width: 768; /*any size*/
+  height: 432; /*any size*/
+}
+.browse-giveaway{
+  vertical-align: middle;
+}
+.img-featured-giveaways
+{
+  margin-bottom: 20px;
+  vertical-align: middle;
+  margin-right: 00px;
+  width: 768; /*any size*/
+  height: 432; /*any size*/
+}
+.img-featured-ads{
+  margin-bottom: 0px;
+  vertical-align: middle;
+  width: 309.6px; /*any size*/
+  height: 176.0px; /*any size*/
+}
+.img-livestream-ads{
+  margin-bottom: 20px;
+  vertical-align: middle;
+  width: 450; /*any size*/
+  height: 300; /*any size*/
+}
 .img-but {
-    margin-bottom: 20px;
-    vertical-align: middle;
-    width: 206px; /*any size*/
-    height: 206px; /*any size*/
+  margin-bottom: 20px;
+  vertical-align: middle;
+  width: 450; /*any size*/
+  height: 300; /*any size*/
 }
 .img-thumbnail-live{
   margin-bottom: 0px;
@@ -206,7 +235,10 @@ hr {
 }
 
 footer {
+  position: absolute;
+  bottom: 0;
     background-color: #3676be;
+
     padding: 15px 0px;
     width: 100%;
 }
@@ -1394,8 +1426,8 @@ input:checked + .slider:before {
     margin-right: auto;
 }
 
-.live-stream-featured-links.row {
-    margin: 0;
+.live-stream-featured-links {
+    margin-bottom: 0px;
 }
 
 .img-button {
@@ -1716,9 +1748,13 @@ input:checked + .slider:before {
   border: 0;
 
 }
+.profile-othergiveaway{
+  width: 100px;
+  height: 100px;
+}
 .othergiveaway{
-  width: 145px;
-  height: 97px;
+  width: 150px;
+  height: 100px;
 }
 .giveawayimage{
   width: 150px;

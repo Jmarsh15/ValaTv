@@ -19,7 +19,7 @@ class FooterNav extends React.Component {
                                             <li><NavLink to={"/rules"}>Rules</NavLink></li>
                                         </ul>
                                     </nav>
-                                    <p className="center">Copyright Bullshit</p>
+                                    <p className="center">Copyright</p>
                                 </div>
                             </div>
                             <div className="socail-container col-lg-4 col-sm-12 col-md-6">
