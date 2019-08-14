@@ -774,7 +774,7 @@ class LiveStream extends React.Component {
 						entered = entered.split(',')
 						let data = Object.assign({}, this.state.giveaway_entries);
 						for (var i = 0; i < entered.length -1; i++) {
-							data[entered[i]].box_image = server_url + 'assets/images/img-4.jpg'
+							data[entered[i]].box_image = server_url + 'assets/images/tick.png'
 							data[entered[i]].coin_amount = ''
 						}
 						this.setState({data})
@@ -791,7 +791,7 @@ class LiveStream extends React.Component {
 						entered = entered.split(',')
 						let data = Object.assign({}, this.state.bonus_coins);
 						for (var i = 0; i < entered.length -1; i++) {
-							data[entered[i]].box_image = server_url + 'assets/images/img-4.jpg'
+							data[entered[i]].box_image = server_url + 'assets/images/tick.png'
 							data[entered[i]].coin_amount = ''
 						}
 					}
@@ -1058,7 +1058,7 @@ class LiveStream extends React.Component {
 				url = 'https://' + bonusentries[index].username;
 				window.open(url, '_blank');
 				this.markGiveawayEntries(index,bonusentries[index].coin_amount)
-				bonusentries[index].box_image = server_url + 'assets/images/img-4.jpg'
+				bonusentries[index].box_image = server_url + 'assets/images/tick.png'
 				bonusentries[index].coin_amount = ''
 				this.setState(bonusentries)
 		}

@@ -27,9 +27,8 @@ class FooterNav extends React.Component {
                                     <ul className={"social-link"}>
                                         <li><NavLink to={"/facebook"}><i className="fa fa-facebook" aria-hidden="true" /></NavLink></li>
                                         <li><NavLink to={"/twitter"}><i className="fa fa-twitter" aria-hidden="true" /></NavLink></li>
-                                        <li><NavLink to={"/slideshare"}><i className="fa fa-slideshare" aria-hidden="true" /></NavLink></li>
+                                        <li><NavLink to={"/discord"}><i className="fab fa-discord" aria-hidden="true" /></NavLink></li>
                                         <li><NavLink to={"/instagram"}><i className="fa fa-instagram" aria-hidden="true" /></NavLink></li>
-                                        <li><NavLink to={"/twitch"}><i className="fa fa-twitch" aria-hidden="true" /></NavLink></li>
                                         <li><NavLink to={"/youtube"}><i className="fa fa-youtube-play" aria-hidden="true" /></NavLink></li>
                                     </ul>
                                 </div>
