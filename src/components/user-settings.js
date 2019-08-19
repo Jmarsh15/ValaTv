@@ -202,7 +202,6 @@ class UserSettings extends React.Component {
         })
         this.state.new_entry_options.push(temp_new_entry_option)
       }
-      console.log(this.state.new_entry_options)
     }
     updateGiveaway = () => {
       var file = this.state.selectedFile
@@ -216,7 +215,7 @@ class UserSettings extends React.Component {
 
       if (file && length != 0 && title.value != '' && description.value != '') {
         for (var i = 0; i < length; i++) {
-          entries += this.state.new_entry_options[i].entry_icon + '/' + this.state.new_entry_options[i].entry_label + '/' + this.state.new_entry_options[i].entry_url + ','
+          entries += this.state.new_entry_options[i].entry_icon + '/-' + this.state.new_entry_options[i].entry_label + '/-' + this.state.new_entry_options[i].entry_url + ','
 
         }
         var formdata = new FormData();
@@ -259,7 +258,13 @@ class UserSettings extends React.Component {
 
       if (file && length != 0 && expire > temp && title.value != '' && description.value != '') {
         for (var i = 0; i < length; i++) {
-          entries += this.state.new_entry_options[i].entry_icon + '/' + this.state.new_entry_options[i].entry_label + '/' + this.state.new_entry_options[i].entry_url + ','
+          if (this.state.new_entry_options[i].entry_url.includes("http://")) {
+            this.state.new_entry_options[i].entry_url = this.state.new_entry_options[i].entry_url.splice(7,0)
+          }
+          else if (this.state.new_entry_options[i].entry_url.includes("https://")) {
+            this.state.new_entry_options[i].entry_url = this.state.new_entry_options[i].entry_url.splice(8,0)
+          }
+          entries += this.state.new_entry_options[i].entry_icon + '/-' + this.state.new_entry_options[i].entry_label + '/-' + this.state.new_entry_options[i].entry_url + ','
 
         }
         var formdata = new FormData();

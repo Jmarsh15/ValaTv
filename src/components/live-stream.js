@@ -236,7 +236,7 @@ class LiveStream extends React.Component {
 						var entries = json[i].entries.split(',')
 						for (var y = 0; y < entries.length - 1; y++) {
 							//usernames.push(entries[i].split(' ').splice(-1))
-							temp.push(entries[y].split('/'))
+							temp.push(entries[y].split('/-'))
 
 						}
 
@@ -270,7 +270,7 @@ class LiveStream extends React.Component {
 					var bonusentries = json[i].entries.split(',')
 					for (var y = 0; y < bonusentries.length - 1; y++) {
 						//usernames.push(entries[i].split(' ').splice(-1))
-						bonustemp.push(bonusentries[y].split('/'))
+						bonustemp.push(bonusentries[y].split('/-'))
 
 					}
 
@@ -996,6 +996,7 @@ class LiveStream extends React.Component {
 							)
 							break;
 							case 'join discord':
+							var discord = this.checkDiscordLogin()
 								var discord = this.CheckDiscord(entries[index].username)
 								setTimeout(
 									() => {
@@ -1010,7 +1011,7 @@ class LiveStream extends React.Component {
 									},
 									2000
 								)
-								//var discord = this.DiscordLogin()
+
 								// url = 'http://discord.gg/sleeplesselite'
 								// window.open(url, '_blank');
 								break;
@@ -1040,6 +1041,34 @@ class LiveStream extends React.Component {
 							this.markGiveawayEntries(index,entries[index].coin_amount)
 
 							break;
+
+
+							case 'watch youtube video':
+
+								url = 'http://'+entries[index].username
+								window.open(url, '_blank');
+								setTimeout(
+									() => {
+											this.markGiveawayEntries(index,entries[index].coin_amount)
+									},
+									3000
+								)
+
+								break;
+
+								case 'visit facebook page':
+
+									url = 'http://'+entries[index].username
+									window.open(url, '_blank');
+									setTimeout(
+										() => {
+												this.markGiveawayEntries(index,entries[index].coin_amount)
+										},
+										3000
+									)
+
+									break;
+
 					default:
 
 				}
@@ -1163,6 +1192,7 @@ CheckDiscord = (server) => {
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState === 4 && xhr.status === 200) {
 				var json = xhr.responseText;
+				console.log(json)
 				if (json === 'Entered') {
 					this.setState({discordjoin:true})
 				}
@@ -1173,6 +1203,21 @@ CheckDiscord = (server) => {
 	xhr.send(formdata);
 }
 
+checkDiscordLogin = () =>{
+	var xhr = new XMLHttpRequest();
+	var url = BACKEND_API +  "discordchecklogin/";
+	xhr.open("GET", url, true);
+	xhr.setRequestHeader('Authorization', 'Token ' + localStorage.getItem('token'))
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+				var json = JSON.parse(xhr.responseText);
+				if (json.length === 0) {
+					this.DiscordLogin()
+				}
+			}
+		}.bind(this)
+	xhr.send();
+}
 DiscordLogin= () => {
 	var data = ''
 	var url = 'https://discordapp.com/api/oauth2/authorize?client_id=604514485968961548&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=code&scope=email%20guilds%20guilds.join%20identify';
@@ -1232,6 +1277,7 @@ TwitterLogin= () => {
 				xhr.onreadystatechange = function () {
 					if (xhr.readyState === 4 && xhr.status === 200) {
 							var json = JSON.parse(xhr.responseText);
+
 						}
 					}
 			  xhr.send(formdata);
