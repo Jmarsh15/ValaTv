@@ -82,8 +82,8 @@ class Home extends React.Component {
       var live = []
       var xhr = new XMLHttpRequest();
       var thumbnail = ''
+      var four = []
       if (list.length != 0) {
-
       for (var i = 0; i < list.length; i++) {
         var url = BACKEND_API +  "livechannels/?username=" +list[i].twitchName;
         xhr.open("GET", url, false);
@@ -157,7 +157,13 @@ class Home extends React.Component {
           }.bind(this)
         xhr.send();
       }
-      this.setState({featured_channels:live})
+      for (var i = 0; i < 4; i++) {
+        var random = Math.floor(0 + (live.length - 0) * Math.random());
+        four.push(live[random])
+        live.splice(random,1)
+      }
+
+      this.setState({featured_channels:four})
     }
     LoadAdSense = () => {
       // TODO Load adsense ads
