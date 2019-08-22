@@ -1301,11 +1301,7 @@ TwitterLogin= () => {
 		const countDown = this.state;
 		return (
 			<div>
-				<TwitterTimelineEmbed
-			   sourceType="profile"
-			   screenName="gotaga"
-			   options={{height: 400}}
-			 />
+				
 				<div className="body-container container-fluid">
 					<div className="row">
 						<SideBar/>
