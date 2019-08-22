@@ -1,4 +1,8 @@
-import React from 'react';
+import React, {Fragment} from 'react'
+import {NavLink} from 'react-router-dom'
+import {connect} from "react-redux";
+import * as actions from '../redux/actions/authActions'
+import {BACKEND_API} from "../utility";
 
 class  Splash extends React.Component{
 	constructor(props) {
@@ -9,6 +13,15 @@ class  Splash extends React.Component{
 		hours: 0,
 		min: 0,
 		sec: 0,
+		texttextemail: '',
+		textpassword: '',
+		textfirst: '',
+		textlast: '',
+		textusername: '',
+		textpass: '',
+		textpassC: '',
+		login_username: '',
+		avatar:'',
 	}
 }
 	calculateCountdown(endDate) {
@@ -67,7 +80,53 @@ class  Splash extends React.Component{
      }
      return value;
    }
+	 handleFounderRegister = () => {
+		 console.log('hi')
+ 		if (this.state.textpass === this.state.textpassC && this.state.textemail !== '' && this.state.textuser !== '' && this.state.textpass !== '' && this.state.textpassC !== '') {
+			var founder = 'True'
+ 			this.props.authSignUp(this.state.textusername,this.state.textemail,this.state.textpass, this.state.textpassC ,this.state.textfirst,this.state.textlast,founder)
+ 			this.setState({textusername:'',textusername:'',textpass:'',textpassC:'',textfirst:'',textlast:'',textemail:''})
 
+ 		}
+ 	}
+	preventLink = (e) => {
+		e.preventDefault()
+	}
+	onChangeInputEmail = (event) => {
+		this.setState({
+			textemail: event.target.value
+		})
+	}
+	onChangeInputPassword = (event) => {
+		this.setState({
+			textpassword: event.target.value
+		})
+	}
+	onChangeInputFirst = (event) => {
+		this.setState({
+			textfirst: event.target.value
+		})
+	}
+	onChangeInputLast = (event) => {
+		this.setState({
+			textlast: event.target.value
+		})
+	}
+	onChangeInputUsername = (event) => {
+		this.setState({
+			textusername: event.target.value
+		})
+	}
+	onChangeInputPassword1 = (event) => {
+		this.setState({
+			textpass: event.target.value
+		})
+	}
+	onChangeInputPassword2 = (event) => {
+		this.setState({
+			textpassC: event.target.value
+		})
+	}
 	render() {
 		return (
 			<div className="App">
@@ -86,7 +145,7 @@ class  Splash extends React.Component{
 						</div>
 						<div className="btn-container">
 							<button className={"signup-btn"} data-toggle="modal"
-											data-target="#signup_id">
+											data-target="#foundersignup_id">
 								<span>signup</span><br/>
 								now for free <br/>
 								<hr className="sign-up-line">
@@ -143,7 +202,7 @@ class  Splash extends React.Component{
 					</div>
 					<div className="btn-container">
 						<button className={"signup-btn"} data-toggle="modal"
-										data-target="#signup_id">
+										data-target="#foundersignup_id">
 							<span>signup</span><br/>
 							now for free <br/>
 							<hr className="sign-up-line">
@@ -151,7 +210,7 @@ class  Splash extends React.Component{
 						</button>
 					</div>
 				</div>
-				<div className="modal fade" id="signup_id" tabIndex="-1" role="dialog"
+				<div className="modal fade" id="foundersignup_id" tabIndex="-1" role="dialog"
 				     aria-labelledby="myModalLabel">
 					<div className="modal-dialog" role="document">
 						<div className="modal-content">
@@ -193,7 +252,7 @@ class  Splash extends React.Component{
 
 							</div>
 							<div className="modal-footer">
-								<button onClick={this.handleRegister}
+								<button onClick={this.handleFounderRegister}
 								        type="button"
 								        data-dismiss="modal"
 								        className="btn btn-primary">
@@ -208,4 +267,15 @@ class  Splash extends React.Component{
 	}
 }
 
-export default Splash;
+const matStateToProps = state => {
+	return {
+		token: state.auth.token,
+		username: state.auth.username
+	}
+}
+const mapDispatchToProps = dispatch => {
+	return {
+		authSignUp: (username, email, password1, password2,first,last,founder) => dispatch(actions.authSignUp(username, email, password1, password2,first,last,founder))
+	}
+}
+export default connect(matStateToProps, mapDispatchToProps)(Splash);

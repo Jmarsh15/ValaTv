@@ -152,6 +152,13 @@ hr {
     color: #fff;
     font-size: 17px;
 }
+.navbarbutton{
+  color: #fff;
+  font-size: 14px;
+  border:none;
+  background-color: transparent;
+  padding: 13px 8px;
+}
 
 .navbar-default .navbar-brand {
     color: #fff;
@@ -501,7 +508,9 @@ h6 {
     border-top: 1px solid #1e1e21;
     width: 100%;
 }
-
+.pastwinnertext{
+  padding-top: 80px;
+}
 .side-past-date {
     padding-left: 20px;
 }
@@ -1531,6 +1540,9 @@ input:checked + .slider:before {
   width: 30px;
   height: 30px;
   border-radius: 50%;
+}
+.navbutton{
+  padding-top: 13px;
 }
 .current-giveaway{
   vertical-align: middle;

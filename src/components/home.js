@@ -232,7 +232,12 @@ class Home extends React.Component {
 			display: 'block',
 		};
         return (
+
             <div>
+              <ins className='adsbygoogle'>
+                        data-ad-client='ca-pub-0881733343994236'
+                        data-ad-slot='12121212'
+                        data-ad-format='auto' </ins>
                 <div className="body-container container-fluid">
                     <div id="gap">
                         <div className="row">

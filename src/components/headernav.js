@@ -89,7 +89,8 @@ class HeaderNav extends React.Component {
 	}
 	handleRegister = () => {
 		if (this.state.textpass === this.state.textpassC && this.state.textemail !== '' && this.state.textuser !== '' && this.state.textpass !== '' && this.state.textpassC !== '') {
-			this.props.authSignUp(this.state.textusername,this.state.textemail,this.state.textpass, this.state.textpassC ,this.state.textfirst,this.state.textlast)
+			var founder = 'False'
+			this.props.authSignUp(this.state.textusername,this.state.textemail,this.state.textpass, this.state.textpassC ,this.state.textfirst,this.state.textlast,founder)
 			this.setState({textusername:'',textusername:'',textpass:'',textpassC:'',textfirst:'',textlast:'',textemail:''})
 
 		}
@@ -115,11 +116,14 @@ class HeaderNav extends React.Component {
         }.bind(this);
       xhr.send();
     }
-
+		renderRedirect = () => {
+	    // var url = 'https://valatv.freshdesk.com/support/tickets/new'
+	    // window.open(url, '_blank');
+	}
 	render() {
 		return (
 			<div>
-				
+
 				<nav className="navbar navbar-default">
 					<div className="container-fluid">
 						<div className="navbar-header">
@@ -140,7 +144,7 @@ class HeaderNav extends React.Component {
 								<li><NavLink exact to={"/community"}>Community</NavLink></li>
 								<li><NavLink to={"/how-to-win"}>How to Win</NavLink></li>
 								<li><NavLink to={"/rules"}>Rules</NavLink></li>
-								<li><NavLink to={"/support"}>Support</NavLink></li>
+								<li><button onClick={this.renderRedirect} className = 'navbarbutton'>Support</button></li>
 								<li><NavLink to={"/store"}>Store</NavLink></li>
 								<li className="menu-bg-black">
 									<NavLink to={"/giveaway"}> <span><i className="fa fa-gift"
@@ -165,7 +169,7 @@ class HeaderNav extends React.Component {
 											</NavLink>
 										</li>
 										<li>
-											<button type="button" className="btn btn-primary"
+											<button type="button" className="btn btn-primary "
 											        onClick={this.props.authLogOut}>
 												Logout
 											</button>
@@ -305,7 +309,7 @@ const mapDispatchToProps = dispatch => {
 		authLogin: (username, password) => dispatch(actions.authLogin(username, password)),
 		authCheckOut: () => dispatch(actions.authCheckState()),
 		authLogOut: () => dispatch(actions.logout()),
-		authSignUp: (username, email, password1, password2) => dispatch(actions.authSignUp(username, email, password1, password2))
+		authSignUp: (username, email, password1, password2,first,last,founder) => dispatch(actions.authSignUp(username, email, password1, password2,first,last,founder))
 	}
 }
 export default connect(matStateToProps, mapDispatchToProps)(HeaderNav);
