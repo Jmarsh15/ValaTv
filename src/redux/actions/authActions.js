@@ -50,15 +50,48 @@ export const authLogin = (username, password) => {
 			})
 	}
 }
+export const authFounderSignUp = (username, email, password1, password2,first,last) => {
+	console.log('founder',first)
 
-export const authSignUp = (username, email, password1, password2,first,last) => {
 	return dispatch => {
 		axios.post(BACKEND_API + 'rest-auth/registration/', {
 				username: username,
 				email: email,
 				password1: password1,
 				password2: password2,
-				user:first + last
+				user:first + last,
+				founder:'True',
+				first_name: first,
+				last_name:last
+
+			})
+			.then( res => {
+				const token = res.data.key
+				const expirationDate = new Date(new Date().getTime()+ 3600 * 3000)
+				localStorage.setItem('token', token)
+				localStorage.setItem('username', username)
+				//localStorage.setItem('expirationDate', expirationDate)
+				dispatch(authSuccess(token,username))
+				//dispatch(checkAuthTimeout(3600))
+			})
+			.catch(err => {
+				dispatch(authFail(err))
+			})
+	}
+}
+
+export const authSignUp = (username, email, password1, password2,first,last,founder) => {
+	console.log('normal', founder)
+	return dispatch => {
+		axios.post(BACKEND_API + 'rest-auth/registration/', {
+				username: username,
+				email: email,
+				password1: password1,
+				password2: password2,
+				user:first + last,
+				first_name: first,
+				last_name:last,
+				founder:founder,
 			})
 			.then( res => {
 				const token = res.data.key

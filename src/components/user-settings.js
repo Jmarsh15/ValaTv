@@ -14,7 +14,7 @@ class UserSettings extends React.Component {
           winnerEmail:'',
           currentid: '',
           active_giveaway: [],
-          past_winners: null,
+          past_winners: [],
           nowinner:[],
           giveawaysuccess: 'success',
           selectedFile: null,
@@ -243,7 +243,6 @@ class UserSettings extends React.Component {
               xhr.send(formdata);
       }
       else {
-        console.log('something is either working right or not at all')
       }
     }
     handleStartGiveaway=() => {
@@ -330,17 +329,15 @@ class UserSettings extends React.Component {
       xhr.send();
     }
     componentDidMount(){
-      if (localStorage.getItem('username') != null) {
-        this.LoadProfile()
-        ReactGA.initialize(GOOGLEANALYICS);
-        ReactGA.pageview('Profile');
-        this.LoadGiveway()
+        if (localStorage.getItem('username') != null) {
+          this.LoadProfile()
+          ReactGA.initialize(GOOGLEANALYICS);
+          ReactGA.pageview('Profile');
+          this.LoadGiveway()
+        }
       }
-  }
-
   renderRedirect = () => {
     if (this.props.username === undefined) {
-      console.log('nooooooo')
       return <Redirect to='/' />
     }
    }
@@ -348,7 +345,6 @@ handleChange (event) {
   const _URL = window.URL || window.webkitURL;
 		let img = new Image();
 		const image_object = event.target.files[0] ;
-		console.log(image_object)
 		img.onload = function () {
 			if (this.width === '450' && this.height === '300') {
         this.setState({selectedFile: image_object})
@@ -396,7 +392,6 @@ handleChange (event) {
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
           var json = JSON.parse(xhr.responseText);
-          console.log(json)
         }
       };
       const data = {
@@ -420,9 +415,12 @@ onChangeEditSocialCon = (e) => {
         })
     }
 handleUpdateSocialCon = () => {
+  if (this.state.update_social_connection != '') {
+
     let update_social = this.state.social_connections
     update_social = update_social.map((social, index) => {
-        if (index === this.state.edit_social_indexing) {
+        if (index === this.state.edit_social_indexing && update_social[index] != '') {
+
             return {
                 ...social,
                 username: this.state.update_social_connection
@@ -438,9 +436,10 @@ handleUpdateSocialCon = () => {
         edit_social_connection: '',
         social_connections: update_social
     })
+  }
+
 
 }
-
 PostUsernames = (update_social) => {
   var connections = update_social
   var formdata = new FormData();
@@ -462,7 +461,6 @@ PostUsernames = (update_social) => {
     };
   xhr.send(formdata);
 }
-
 LoadGiveway = () => {
   var pageurl = window.location.href.split('/')
   var currentgiveaway = []
@@ -478,6 +476,10 @@ LoadGiveway = () => {
       var json = JSON.parse(xhr.responseText);
       if (json.length != 0) {
         for (var i = 0; i < json.length; i++) {
+          if (json[i].title === 'bonus') {
+            json.splice(i,1);
+            break;
+          }
         var expired = new Date(json[i].expire)
         var current = new Date()
           if (expired < current && json[i].winner != null) {
@@ -494,7 +496,7 @@ LoadGiveway = () => {
 
           }
           else if (expired < current && json[i].winner === null) {
-            console.log(json[i])
+
             var image = json[i].image.split('/')
             var expire = json[i].expire.split('T')
             const data = {
@@ -504,20 +506,9 @@ LoadGiveway = () => {
             }
             nowinner.push(data)
           }
-          // else {
-          //   var image = json[i].image.split('/')
-          //   var expire = json[i].expire.split('T')
-          //   this.setState({selectedFile :BACKEND_API + 'static/giveaway/' + image[7]})
-          //   this.setState({expire:json[i].expire.slice(0, -4)})
-          //
-          //   this.setState({current:'77'})
-          //
-          // }
-
-          if (this.state.expire != '') {
+          else {
             this.setState({currentid:json[i].static_id})
             var expire = document.getElementById("enddate")
-            console.log(this.state.expire)
             expire.value = this.state.expire
             var title = document.getElementById("title")
             title.value = json[i].title
@@ -533,7 +524,6 @@ LoadGiveway = () => {
   					var entries = []
   					for (var i = 0; i < temp.length; i++) {
               var split = temp[i][0].split('-')
-              console.log(split)
               if (split[1]==='external') {
                 split = 'bg-primary'
               }
@@ -550,7 +540,45 @@ LoadGiveway = () => {
   						entries.push(entry)
   					}
             this.setState({new_entry_options:entries})
+            this.setState({current:true})
           }
+
+          // if (this.state.expire != '') {
+          //
+          //   this.setState({currentid:json[i].static_id})
+          //   var expire = document.getElementById("enddate")
+          //   expire.value = this.state.expire
+          //   var title = document.getElementById("title")
+          //   title.value = json[i].title
+          //   var des = document.getElementById("description")
+          //   des.value = json[i].description.toString()
+          //   var entries = json[i].entries.split(',')
+          //   var temp=[]
+  				// 	for (var i = 0; i < entries.length - 1; i++) {
+  				// 		//usernames.push(entries[i].split(' ').splice(-1))
+  				// 		temp.push(entries[i].split('/'))
+          //
+  				// 	}
+  				// 	var entries = []
+  				// 	for (var i = 0; i < temp.length; i++) {
+          //     var split = temp[i][0].split('-')
+          //     if (split[1]==='external') {
+          //       split = 'bg-primary'
+          //     }
+          //     else {
+          //       split = split[1]+('-bg')
+          //     }
+  				// 		const entry = {
+          //       entry_color_class:split,
+  				// 			entry_icon: temp[i][0],
+  				// 			entry_label: temp[i][1],
+  				// 			entry_url: temp[i][2]
+          //
+  				// 		}
+  				// 		entries.push(entry)
+  				// 	}
+          //   this.setState({new_entry_options:entries})
+          // }
 
 
     }
@@ -573,11 +601,9 @@ LoadGiveway = () => {
 
   xhr.send()
 }
-
 rollGiveaway = () => {
   //TODO Load Image from AWS
   var xhr = new XMLHttpRequest();
-  console.log('test')
   var url = BACKEND_API +  "findwinner/";
   xhr.open("GET", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
@@ -585,13 +611,11 @@ rollGiveaway = () => {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
         var json = JSON.parse(xhr.responseText);
-        console.log(json)
+        window.location.reload();
       }
     }.bind(this);
   xhr.send();
 }
-
-
 showContactInfo = (index) => {
   var xhr = new XMLHttpRequest();
   let data = Object.assign({}, this.state.past_winners);
@@ -602,9 +626,7 @@ showContactInfo = (index) => {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
         var json = JSON.parse(xhr.responseText);
-        console.log(json)
         this.setState({winnerEmail:json[0].email})
-        console.log(json[0].email)
         window.location.href = "mailto:" + json[0].email;
 
       }
@@ -626,10 +648,6 @@ showContactInfo = (index) => {
                                         id="defaultOpen">settings
                                 </button>
                                 <button className="tablinks" onClick={e => this.openCity(e, 'giveaways')}>giveaways
-                                </button>
-                                <button className="tablinks" onClick={e => this.openCity(e, 'partner')}>become partner
-                                </button>
-                                <button className="tablinks" onClick={e => this.openCity(e, 'portal')}>Partner Portal
                                 </button>
                             </div>
                             {/*settings tab*/}
@@ -693,7 +711,6 @@ showContactInfo = (index) => {
                               {
                                 this.state.current != null ?
                                 <Fragment>
-
                                 <h1>giveaways</h1>
                                   <Fragment>
                                   <div className="user-box">
@@ -782,59 +799,7 @@ showContactInfo = (index) => {
 
                                   </div>
                                   </Fragment>
-                                  <div className="past-winners">
-                                    <ul>
-                                        <h3>Completed Giveaways  - Please Select Winner</h3>
 
-                                      {this.state.nowinner.map((past_winner, index) => {
-                                        return (
-                                          <li key={index}>
-                                            <div className="flout-left">
-                                              <button>
-                                              <div className="flout-left">
-                                                <img alt={"past winner"}
-                                                     src={past_winner.img}
-                                                     className="past-winner"/>
-                                              </div>
-                                              <div className="flout-right side-past-date">
-                                                <h2 className="color-blue uppercase">{past_winner.username}</h2>
-                                                <h4 className="uppercase">{past_winner.title}</h4>
-                                              </div>
-                                              </button>
-                                            </div>
-                                            <div
-                                              className="flout-right padding-top20">{past_winner.date}</div>
-                                          </li>
-                                        )
-                                      })}
-                                        <h3>past giveaways</h3>
-
-                                      {this.state.past_winners.map((past_winner, index) => {
-                                        return (
-                                          <li key={index}>
-
-                                            <div className="flout-left">
-                                              <button onClick = {e => this.showContactInfo(index)}>
-
-                                              <div className="flout-left">
-                                                <img alt={"past winner"}
-                                                     src={past_winner.img}
-                                                     className="past-winner"/>
-                                              </div>
-                                              <div className="flout-right side-past-date">
-                                                <h2 className="color-blue uppercase">{past_winner.username}</h2>
-                                                <h4 className="uppercase">{past_winner.title}</h4>
-                                              </div>
-                                              </button>
-                                            </div>
-                                            <div
-                                              className="flout-right padding-top20">{past_winner.date}</div>
-                                          </li>
-                                        )
-                                      })}
-
-                                    </ul>
-                                  </div>
                                   </Fragment>
                                   :
                                 <Fragment>
@@ -924,9 +889,14 @@ showContactInfo = (index) => {
                                     </div>
 
                                 </div>
+
+                                </Fragment>
+                              }
+                              {
+                                this.state.nowinner.length != 0?
                                 <div className="past-winners">
                                   <ul>
-                                      <h3>Completed Giveaways  - Please Select Winner</h3>
+                                      <h3 className = 'pastwinnertext'>Completed Giveaways  - Please Select Winner</h3>
 
                                     {this.state.nowinner.map((past_winner, index) => {
                                       return (
@@ -951,21 +921,51 @@ showContactInfo = (index) => {
                                     })}
                                   </ul>
                                 </div>
-                                </Fragment>
+                                :
+                              <h3></h3>
                               }
+                              {
+                                this.state.past_winners.length != 0?
+                                <div className="past-winners">
+                                  <ul>
+                                <h3 className = 'pastwinnertext'>past giveaways</h3>
+
+                              {this.state.past_winners.map((past_winner, index) => {
+                                return (
+                                  <li key={index}>
+
+                                    <div className="flout-left">
+                                      <button onClick = {e => this.showContactInfo(index)}>
+
+                                      <div className="flout-left">
+                                        <img alt={"past winner"}
+                                             src={past_winner.img}
+                                             className="past-winner"/>
+                                      </div>
+                                      <div className="flout-right side-past-date">
+                                        <h2 className="color-blue uppercase">{past_winner.username}</h2>
+                                        <h4 className="uppercase">{past_winner.title}</h4>
+                                      </div>
+                                      </button>
+                                    </div>
+                                    <div
+                                      className="flout-right padding-top20">{past_winner.date}</div>
+                                  </li>
+                                )
+                              })}
+                              </ul>
                             </div>
-                            {/*partner tab*/}
-                            <div id="partner" className="tabcontent">
-                                <h1>become partner</h1>
-                            </div>
-                            <div id="portal" className="tabcontent">
-                                <h1>Partner Portal</h1>
+                              :
+                              <h3></h3>
+                              }
                             </div>
                         </div>
                         <div className="footer-top-gap"/>
                     </div>
                 </div>
+
               }
+
 
                 <div className="modal fade" id="edit_giveaway_modal" tabIndex="-1" role="dialog"
                      aria-labelledby="myModalLabel">

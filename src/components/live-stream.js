@@ -4,6 +4,7 @@ import SideBar from "./sidebar";
 // import * as qs from 'query-string';
 import {BACKEND_API, server_url,GOOGLEANALYICS} from "../utility";
 import ReactGA from 'react-ga';
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
 
 class LiveStream extends React.Component {
 	constructor(props) {
@@ -975,6 +976,7 @@ class LiveStream extends React.Component {
 								const twitch = this.state.twitchfollow
 								if (twitch === true) {
 									this.markGiveawayEntries(index,entries[index].coin_amount)
+
 								}
 							},
 							2000
@@ -1299,7 +1301,11 @@ TwitterLogin= () => {
 		const countDown = this.state;
 		return (
 			<div>
-
+				<TwitterTimelineEmbed
+			   sourceType="profile"
+			   screenName="gotaga"
+			   options={{height: 400}}
+			 />
 				<div className="body-container container-fluid">
 					<div className="row">
 						<SideBar/>

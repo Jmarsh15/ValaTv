@@ -25,7 +25,7 @@ class App extends Component {
             online_status: true,
             username: '',
             logged_in: false,
-            
+
             avatar : ''
         }
     }
